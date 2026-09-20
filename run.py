@@ -31,9 +31,9 @@ def main():
     host = "127.0.0.1"
     port = 8000
     
-    print(f"\n🚀 Server starting on: http://{host}:{port}")
-    print(f"📄 Interactive API Docs: http://{host}:{port}/docs")
-    print("💡 Press Ctrl+C to stop the server.\n")
+    print(f"\n[+] Server starting on: http://{host}:{port}")
+    print(f"[+] Interactive API Docs: http://{host}:{port}/docs")
+    print("[!] Press Ctrl+C to stop the server.\n")
     
     uvicorn.run("backend.main:app", host=host, port=port, reload=True)
 
