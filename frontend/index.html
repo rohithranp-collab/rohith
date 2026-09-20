@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="TaskCraft - A modern full-stack task management application with real-time analytics, categories, and priority tracking.">
+    <title>TaskCraft — Full-Stack Task Manager</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- CSS Stylesheet -->
+    <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+    <div class="app-background">
+        <div class="glow-orb orb-1"></div>
+        <div class="glow-orb orb-2"></div>
+    </div>
+
+    <div class="app-container">
+        <!-- Navigation Header -->
+        <header class="app-header glass-card">
+            <div class="header-brand">
+                <div class="brand-icon">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z"></path>
+                        <path d="m9 12 2 2 4-4"></path>
+                    </svg>
+                </div>
+                <div>
+                    <h1 class="brand-title">TaskCraft</h1>
+                    <p class="brand-subtitle">Full-Stack Task Management System</p>
+                </div>
+            </div>
+
+            <div class="header-actions">
+                <button id="themeToggleBtn" class="icon-btn glass-btn" title="Toggle Theme" aria-label="Toggle Theme">
+                    <svg class="sun-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                    <svg class="moon-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                </button>
+                <button id="openCreateModalBtn" class="btn btn-primary">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                        <line x1="12" y1="5" x2="12" y2="19"></line>
+                        <line x1="5" y1="12" x2="19" y2="12"></line>
+                    </svg>
+                    <span>New Task</span>
+                </button>
+            </div>
+        </header>
+
+        <!-- Dashboard Analytics Widget -->
+        <section class="dashboard-stats glass-card">
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-icon total-icon">📋</div>
+                    <div class="stat-info">
+                        <span class="stat-value" id="statTotal">0</span>
+                        <span class="stat-label">Total Tasks</span>
+                    </div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-icon pending-icon">⏳</div>
+                    <div class="stat-info">
+                        <span class="stat-value" id="statPending">0</span>
+                        <span class="stat-label">Pending</span>
+                    </div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-icon completed-icon">✅</div>
+                    <div class="stat-info">
+                        <span class="stat-value" id="statCompleted">0</span>
+                        <span class="stat-label">Completed</span>
+                    </div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-icon priority-icon">🔥</div>
+                    <div class="stat-info">
+                        <span class="stat-value" id="statHighPriority">0</span>
+                        <span class="stat-label">High Priority</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="progress-section">
+                <div class="progress-header">
+                    <span>Overall Progress</span>
+                    <span id="progressPercentage">0%</span>
+                </div>
+                <div class="progress-bar-track">
+                    <div class="progress-bar-fill" id="progressBarFill" style="width: 0%;"></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Search & Control Toolbar -->
+        <section class="toolbar glass-card">
+            <div class="search-box">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <circle cx="11" cy="11" r="8"></circle>
+                    <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                </svg>
+                <input type="text" id="searchInput" placeholder="Search tasks by title or description..." autocomplete="off">
+                <button id="clearSearchBtn" class="clear-search-btn" style="display: none;">✕</button>
+            </div>
+
+            <div class="filter-controls">
+                <!-- Status Filter Tabs -->
+                <div class="status-tabs" id="statusTabs">
+                    <button class="tab-btn active" data-status="all">All</button>
+                    <button class="tab-btn" data-status="pending">Pending</button>
+                    <button class="tab-btn" data-status="completed">Completed</button>
+                </div>
+
+                <!-- Select Filters -->
+                <div class="select-group">
+                    <select id="categoryFilter" class="custom-select" aria-label="Category Filter">
+                        <option value="all">All Categories</option>
+                        <option value="Work">💼 Work</option>
+                        <option value="Personal">👤 Personal</option>
+                        <option value="Shopping">🛒 Shopping</option>
+                        <option value="Health">💪 Health</option>
+                        <option value="Finance">💰 Finance</option>
+                    </select>
+
+                    <select id="priorityFilter" class="custom-select" aria-label="Priority Filter">
+                        <option value="all">All Priorities</option>
+                        <option value="high">🔴 High Priority</option>
+                        <option value="medium">🟡 Medium Priority</option>
+                        <option value="low">🟢 Low Priority</option>
+                    </select>
+
+                    <select id="sortBySelect" class="custom-select" aria-label="Sort By">
+                        <option value="created_at_desc">Newest First</option>
+                        <option value="created_at_asc">Oldest First</option>
+                        <option value="due_date_asc">Due Date (Earliest)</option>
+                        <option value="priority_desc">Priority (High to Low)</option>
+                    </select>
+                </div>
+            </div>
+        </section>
+
+        <!-- Tasks Container -->
+        <main class="tasks-section">
+            <div id="tasksList" class="tasks-list">
+                <!-- Dynamic Task Cards Rendered Here -->
+            </div>
+
+            <!-- Empty State Display -->
+            <div id="emptyState" class="empty-state glass-card" style="display: none;">
+                <div class="empty-illustration">📌</div>
+                <h3>No tasks found</h3>
+                <p>Try adjusting your search query, clearing filters, or create a new task!</p>
+                <button id="emptyCreateBtn" class="btn btn-primary" style="margin-top: 1rem;">
+                    <span>+ Add Your First Task</span>
+                </button>
+            </div>
+        </main>
+    </div>
+
+    <!-- Create / Edit Task Modal -->
+    <div id="taskModal" class="modal-backdrop" style="display: none;">
+        <div class="modal-card glass-card">
+            <div class="modal-header">
+                <h2 id="modalTitle">Create New Task</h2>
+                <button id="closeModalBtn" class="close-btn">&times;</button>
+            </div>
+
+            <form id="taskForm" class="modal-body">
+                <input type="hidden" id="taskId">
+
+                <div class="form-group">
+                    <label for="taskTitleInput">Task Title <span class="required">*</span></label>
+                    <input type="text" id="taskTitleInput" placeholder="e.g. Finish Q3 Report" required autofocus>
+                </div>
+
+                <div class="form-group">
+                    <label for="taskDescInput">Description</label>
+                    <textarea id="taskDescInput" rows="3" placeholder="Add detailed notes or instructions..."></textarea>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="taskCategorySelect">Category</label>
+                        <select id="taskCategorySelect" class="custom-select">
+                            <option value="Work">💼 Work</option>
+                            <option value="Personal" selected>👤 Personal</option>
+                            <option value="Shopping">🛒 Shopping</option>
+                            <option value="Health">💪 Health</option>
+                            <option value="Finance">💰 Finance</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="taskPrioritySelect">Priority</label>
+                        <select id="taskPrioritySelect" class="custom-select">
+                            <option value="low">🟢 Low</option>
+                            <option value="medium" selected>🟡 Medium</option>
+                            <option value="high">🔴 High</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="taskDueDateInput">Due Date</label>
+                        <input type="date" id="taskDueDateInput" class="custom-input">
+                    </div>
+                </div>
+
+                <!-- Subtasks Builder Section -->
+                <div class="form-group">
+                    <label>Subtasks / Checklist</label>
+                    <div id="subtasksListBuilder" class="subtasks-builder">
+                        <!-- Subtask item rows -->
+                    </div>
+                    <button type="button" id="addSubtaskRowBtn" class="btn btn-secondary btn-sm">
+                        <span>+ Add Subtask Item</span>
+                    </button>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" id="cancelModalBtn" class="btn btn-secondary">Cancel</button>
+                    <button type="submit" id="saveTaskBtn" class="btn btn-primary">Save Task</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Toast Notification Banner -->
+    <div id="toast" class="toast-banner"></div>
+
+    <!-- Frontend Scripts -->
+    <script src="/static/js/api.js"></script>
+    <script src="/static/js/app.js"></script>
+</body>
+</html>
