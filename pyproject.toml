@@ -13,3 +13,8 @@ dependencies = [
     "uvicorn[standard]>=0.28.0",
     "pydantic>=2.6.0"
 ]
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["backend*"]
+
