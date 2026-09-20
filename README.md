@@ -104,3 +104,6 @@ python run.py
 
 This project is licensed under the MIT License.
 >>>>>>> bc615a8 (Initial commit: Full-stack TaskCraft To-Do Application with FastAPI, SQLite, and Glassmorphism UI)
+>>>>>>>
+>>>>>>> Web UI Interface: http://127.0.0.1:8000
+Interactive OpenAPI Docs: http://127.0.0.1:8000/docs
