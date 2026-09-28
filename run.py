@@ -30,9 +30,11 @@ def main():
     
     host = "127.0.0.1"
     port = 8000
+    domain = "https://todo.application"
     
-    print(f"\n[+] Server starting on: http://{host}:{port}")
-    print(f"[+] Interactive API Docs: http://{host}:{port}/docs")
+    print(f"\n[+] Web Dashboard URL: {domain}")
+    print(f"[+] Interactive API Docs: {domain}/docs")
+    print(f"[+] Local IP Fallback: http://{host}:{port}")
     print("[!] Press Ctrl+C to stop the server.\n")
     
     uvicorn.run("backend.main:app", host=host, port=port, reload=True)

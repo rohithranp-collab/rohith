@@ -1,7 +1,3 @@
-<<<<<<< HEAD
-# rohith
-to-do
-=======
 # 🚀 TaskCraft — Full-Stack Task Management System
 
 **TaskCraft** is a full-stack, production-ready To-Do application built with a modern **Python FastAPI REST API backend**, an embedded **SQLite relational database**, and a responsive **Glassmorphism Single-Page Application (SPA) frontend**.
@@ -50,7 +46,6 @@ taskcraft-todo/
 │   └── js/
 │       ├── api.js           # REST API fetch wrapper client
 │       └── app.js           # State controller, UI renderer & event handlers
-├── .gitignore               # Git ignore rules for virtual environments & database
 ├── pyproject.toml           # Project packaging metadata
 ├── requirements.txt         # Dependencies list
 ├── run.py                   # One-click startup launcher script
@@ -78,8 +73,20 @@ python run.py
 > The launcher automatically verifies dependencies (`fastapi`, `uvicorn`, `pydantic`), initializes the database schema, seeds sample data, and starts the server!
 
 ### 3. Open in Browser
-- **Web App UI**: [http://127.0.0.1:8000](http://127.0.0.1:8000)
-- **Interactive API Docs (Swagger)**: [http://127.0.0.1:8000/docs](http://127.0.0.1:8000/docs)
+- **Web App Dashboard**: [https://todo.application](https://todo.application) *(or http://127.0.0.1:8000)*
+- **Interactive API Docs (Swagger)**: [https://todo.application/docs](https://todo.application/docs)
+
+---
+
+## 🌐 Setting Up `https://todo.application` Domain Locally
+
+To resolve `https://todo.application` on your machine to the local TaskCraft app:
+
+### Option A: Edit Hosts File (Windows)
+Open PowerShell as **Administrator** and run:
+```powershell
+Add-Content -Path "C:\Windows\System32\drivers\etc\hosts" -Value "`n127.0.0.1 todo.application"
+```
 
 ---
 
@@ -103,7 +110,3 @@ python run.py
 ## 📄 License
 
 This project is licensed under the MIT License.
->>>>>>> bc615a8 (Initial commit: Full-stack TaskCraft To-Do Application with FastAPI, SQLite, and Glassmorphism UI)
->>>>>>>
->>>>>>> Web UI Interface: http://127.0.0.1:8000
-Interactive OpenAPI Docs: http://127.0.0.1:8000/docs
